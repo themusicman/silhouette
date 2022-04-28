@@ -1,13 +1,26 @@
-# silhouette
+# Silhouette
 
 An Elixir Graphql Client
+
+## Installation
+
+If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+by adding `silhouette` to your list of dependencies in `mix.exs`:
+
+```elixir
+def deps do
+  [
+    {:silhouette, "~> 0.1.0"}
+  ]
+end
+```
 
 ## Goals
 
 - Composable
 - Possibly code generation based on Graphql introspection
 
-### Potential API Design:
+## Potential API Design:
 
 ```elixir
 
@@ -115,3 +128,7 @@ User.get(1)
   {:error, msg} -> IO.inspect(msg)
 end
 ```
+
+Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
+and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
+be found at <https://hexdocs.pm/silhouette>.
