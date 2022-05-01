@@ -1,4 +1,4 @@
-# Silhouette
+# Silhouette (Alpha)
 
 An Elixir Graphql Client
 
@@ -19,6 +19,12 @@ end
 
 - Composable
 - Possibly code generation based on Graphql introspection
+- Support Subscriptions (hopefully)
+- Support for changsets (maybe just Ecto changsets)
+
+## Examples
+
+See the `examples` directory for examples of how to use this package. Feel free to submit a pull request adding more of them. :)
 
 ## Potential API Design:
 
@@ -61,6 +67,9 @@ defmodule User do
   #        firstName
   #        lastName
   #        createdAt
+  #        phoneNumbers {
+  #            number
+  #        }
   #    }
   #  }
   def get(id) do
@@ -75,9 +84,11 @@ defmodule User do
       |> SelectionSet.with(:created_at, as: :datetime)
       |> SelectionSet.with(:phone_numbers, list_of: phone_numbers_selection)
 
-    Graphql.query(:user, user_selection)
+    Graphql.query(for: :user, one_of: user_selection)
     |> Graphql.arguments(%{id: "ID!"})
     |> Graphql.variables(%{id: id})
+    |> Graphql.headers(%{"Authorization" => "Bearer tokenhere")
+    |> Graphql.url("https://example.com/graphql")
   end
 
   # mutation CreateUser($user: UserInput!) {
@@ -114,17 +125,17 @@ defmodule User do
   end
 end
 
-User.create(%{user: %User.UserInput{first_name: "Thomas", last_name: "Brewer"}})
+User.create(%{user: %{first_name: "Thomas", last_name: "Brewer"}})
 |> Graphql.execute()
 |> case do
-  {:ok, response} -> IO.inspect(response)
+  {:ok, user} -> IO.inspect(user)
   {:error, msg} -> IO.inspect(msg)
 end
 
 User.get(1)
 |> Graphql.execute()
 |> case do
-  {:ok, response} -> IO.inspect(response)
+  {:ok, user} -> IO.inspect(user)
   {:error, msg} -> IO.inspect(msg)
 end
 ```
