@@ -4,7 +4,7 @@ An Elixir Graphql Client
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+If [available in Hex](https://hex.pm/packages/silhouette), the package can be installed
 by adding `silhouette` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -21,6 +21,7 @@ end
 - Possibly code generation based on Graphql introspection
 - Support Subscriptions (hopefully)
 - Support for changsets (maybe just Ecto changsets)
+- Support for Fragments and Unions
 
 ## Examples
 
